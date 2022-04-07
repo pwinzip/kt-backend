@@ -6,6 +6,7 @@ use App\Http\Controllers\EnterpriseController;
 use App\Http\Controllers\FarmerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PlantController;
+use App\Models\Enterprise;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('members/{id}', [EnterpriseController::class, 'getMembers']);
     Route::get('sales/{id}', [EnterpriseController::class, 'getSales']);
     Route::post('addsales/{id}', [EnterpriseController::class, 'addSales']);
+    Route::get('allenterpriseplants/{id}', [EnterpriseController::class, 'countAllPlants']);
     
     // Admin
     Route::post('addfarmer', [AdminController::class, 'addFarmer']);

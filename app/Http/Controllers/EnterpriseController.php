@@ -17,15 +17,23 @@ class EnterpriseController extends Controller
         $users = [];
         foreach ($members as $m) {
             $user = Farmer::find($m->id)->users;
+            $plants = Farmer::find($m->id)->plants;
+            if($plants->count() > 0) {
+                $remain = $plants->first()->remain_plant;
+            }
+            else {
+                $remain = $m->received_amount;
+            }
             $new_arr = [
                 "id" => $m->id,
                 "address" => $m->address,
-                "growing_area" => $m->growing_area,
-                "lat_plot" => $m->lat_plot,
-                "long_plot" => $m->long_plot,
+                "area" => $m->area,
+                "lat" => $m->lat,
+                "long" => $m->long,
                 "userid" => $user->id,
                 "name" => $user->name,
                 "tel" => $user->tel,
+                "remain" => $remain,
                 "created_at" => $user->created_at,
             ];
             array_push($users, $new_arr);
@@ -54,8 +62,8 @@ class EnterpriseController extends Controller
         ]);
         $sale = Sale::create([
             'enterprise_id' => $id,
-            'date_for_sell' => Carbon::createFromFormat('d/m/Y', $fields['saleDate'])->format('Y-m-d'),
-            'quantity_for_sell' => $fields['saleAmount'],
+            'date_for_sale' => Carbon::createFromFormat('d/m/Y', $fields['saleDate'])->format('Y-m-d'),
+            'quantity_for_sale' => $fields['saleAmount'],
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
@@ -109,6 +117,25 @@ class EnterpriseController extends Controller
         } else {
             return response('Permission Denied.', 403);
         }
+    }
+
+    public function countAllPlants(Request $request, $id) {
+        $farmers = Enterprise::find($id)->farmers;
+        $count_plant = 0;
+        foreach ($farmers as $value) {
+            $count = Farmer::find($value['id'])->plants->first();
+            if ($count) {
+                $count_plant = $count_plant + $count['remain_plant'];
+            } else {
+                $count_plant = $count_plant + $value['received_amount'];
+            }
+        }
+        $data = [
+            "farmers" => $farmers->count(),
+            "plants" => $count_plant,
+        ];
+
+        return response($data, 200);
     }
 
     /**

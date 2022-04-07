@@ -25,7 +25,7 @@ class AdminController extends Controller
             $user = User::create([
                 "name" => $fields['agentName'],
                 "tel" => $fields['agentTel'],
-                "password" => $fields['agentPassword'],
+                "password" => Hash::make($fields['agentPassword']),
                 "is_active" => $fields['isActive'],
                 "role" => 1, // enterprise
             ]);

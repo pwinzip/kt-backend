@@ -21,9 +21,25 @@ class EnterprisesSeeder extends Seeder
         $data = [
             [
                 "regist_no"=> "PHL001",
-                'enterprise_name' => 'enterprise test',
-                'agent_id' => 1,
-                'address' => "Songkhla",
+                'enterprise_name' => 'วิสาหกิจชุมชนกระท่อมเพื่อสุขภาพ',
+                'agent_id' => 2,
+                'address' => "พัทลุง",
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                "regist_no"=> "PHL002",
+                'enterprise_name' => 'วิสาหกิจชุมชนกระท่อมสมุนไพร',
+                'agent_id' => 3,
+                'address' => "พัทลุง",
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                "regist_no"=> "PHL003",
+                'enterprise_name' => 'วิสาหกิจชุมชนกระท่อมพาณิชย์',
+                'agent_id' => 4,
+                'address' => "พัทลุง",
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],

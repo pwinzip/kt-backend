@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->foreignId('enterprise_id')->constrained('enterprises');
-            $table->date('date_for_sell');
-            $table->double('quantity_for_sell');
+            $table->date('date_for_sale');
+            $table->double('quantity_for_sale');
             $table->timestamps();
         });
     }

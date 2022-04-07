@@ -23,31 +23,63 @@ class UsersSeeder extends Seeder
             [
                 "name"=> "admin",
                 'password' => Hash::make('123456'),
-                'tel' => "0887607910",
+                'tel' => "0891111111",
                 'role' => 0, // admin
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                "name"=> "enterprise one",
+                "name"=> "นายประสิทธิ์ ดีพร้อม",
                 'password' => Hash::make('123456'),
-                'tel' => "0887607910",
+                'tel' => "0892222222",
                 'role' => 1, // enterprise
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                "name"=> "farmer one",
+                "name"=> "นางสมบูรณ์ ผิวขาว",
                 'password' => Hash::make('123456'),
-                'tel' => "0897374984",
+                'tel' => "0893333333",
+                'role' => 1, // enterprise
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                "name"=> "นายสมนึก สุดใจ",
+                'password' => Hash::make('123456'),
+                'tel' => "0894444444",
+                'role' => 1, // farmer
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                "name"=> "นางแก้วตา ใจดี",
+                'password' => Hash::make('123456'),
+                'tel' => "0895555555",
                 'role' => 2, // farmer
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                "name"=> "farmer two",
+                "name"=> "นายสมศักดิ์ รักยิ่ง",
                 'password' => Hash::make('123456'),
-                'tel' => "0894623275",
+                'tel' => "0896666666",
+                'role' => 2, // farmer
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                "name"=> "นายจักร คงทน",
+                'password' => Hash::make('123456'),
+                'tel' => "0897777777",
+                'role' => 2, // farmer
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                "name"=> "นางปรียา รักสวย",
+                'password' => Hash::make('123456'),
+                'tel' => "0898888888",
                 'role' => 2, // farmer
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),

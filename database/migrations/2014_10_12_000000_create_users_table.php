@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('tel');
             $table->string('password');
             $table->tinyInteger('role'); // 0 admin, 1 enterprise, 2 farmer
+            $table->tinyInteger('is_active')->default(1); // 0 inactive, 1 active
             $table->rememberToken();
             $table->timestamps();
         });

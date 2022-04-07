@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EnterpriseController;
 use App\Http\Controllers\FarmerController;
@@ -27,15 +28,28 @@ Route::post('login', [AuthController::class, 'login']);
 // Route::resource('farmers', FarmerController::class);
 // Route::resource('orders', OrderController::class);
 
-Route::post('plants/{id}', [PlantController::class, 'addPlants']);
-Route::get('farmerinfo/{id}', [FarmerController::class, 'getInfo']);
-Route::get('farmerplants/{id}', [FarmerController::class, 'getPlants']);
-Route::get('members/{id}', [EnterpriseController::class, 'getMembers']);
-Route::get('sales/{id}', [EnterpriseController::class, 'getSales']);
-Route::post('addsales/{id}', [EnterpriseController::class, 'addSales']);
+// Route::post('plants/{id}', [PlantController::class, 'addPlants']);
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('logout', [AuthController::class, 'logout']);
+    // Farmer
+    Route::get('amountplants/{id}', [FarmerController::class, 'getAmountPlants']);
+    Route::get('allplants/{id}', [FarmerController::class, 'getAllPlants']);
+    Route::post('addplant/{id}', [FarmerController::class, 'addPlants']);
+    
+    // Enterprise
+    Route::get('members/{id}', [EnterpriseController::class, 'getMembers']);
+    Route::get('sales/{id}', [EnterpriseController::class, 'getSales']);
+    Route::post('addsales/{id}', [EnterpriseController::class, 'addSales']);
+    
+    // Admin
+    Route::post('addfarmer', [AdminController::class, 'addFarmer']);
+    Route::post('addenterprise', [AdminController::class, 'addEnterprise']);
+    Route::post('addadmin', [AdminController::class, 'addAdmin']);
+    Route::get('enterprises', [AdminController::class, 'getAllEnterprises']);
+    Route::get('enterprisemembers/{id}', [AdminController::class, 'getAllMembers']);
+    Route::get('farmer/{id}', [AdminController::class, 'getMember']);
+    Route::get('countall', [AdminController::class, 'countAllEnterprisesAndMembers']);
 });
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

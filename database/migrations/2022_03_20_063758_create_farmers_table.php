@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->string('address');
-            $table->double('growing_area');
-            $table->double('lat_plot');
-            $table->double('long_plot');
+            $table->double('area');
+            $table->double('lat');
+            $table->double('long');
             $table->integer('received_amount');
             $table->foreignId('enterprise_id')->constrained('enterprises');
             $table->timestamps();

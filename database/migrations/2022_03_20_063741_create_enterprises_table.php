@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('enterprise_name');
             $table->foreignId('agent_id')->constrained('users');
             $table->string('address');
+            $table->tinyInteger('is_active')->default(1); // 0 = inactive, 1 active
             $table->timestamps();
         });
     }

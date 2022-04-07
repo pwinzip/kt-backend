@@ -5,10 +5,59 @@ namespace App\Http\Controllers;
 use App\Models\Farmer;
 use App\Models\Plant;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class FarmerController extends Controller
 {
+
+    public function getAmountPlants($id) { // getAmountPlants
+        $farmer = Farmer::find($id);
+        $remain_amount = $farmer->received_amount;
+        $addon_amount = 0;
+        $plant = Farmer::find($id)->getCurrentPlants;
+        if(count($plant) > 0) {
+            $remain_amount = $plant->first()->remain_plant;
+            $addon_amount = $plant->first()->addon_plant;
+        }
+
+        $data = [
+            "remain" => $remain_amount,
+            "addon" => $addon_amount,
+        ];
+
+        return response($data, 200);
+    }
+
+    public function getAllPlants($id) {
+        $plant = Farmer::find($id)->plants;
+        $data = [
+            "payload" => $plant,
+        ];
+
+        return response($data, 200);
+    }
+
+    public function addPlants(Request $request, $id) {
+        $fields = $request->validate([
+            'remain' => 'required|integer',
+            'addonAmount' => 'required|integer',
+            'addonSpecies' => 'required|string',
+            'expectedDate' => 'required|string',
+            'expectedAmount' => 'required|numeric',
+        ]);
+        $plant = Plant::create([
+            'farmer_id' => $id,
+            'remain_plant' => $fields['remain'],
+            'addon_plant' => $fields['addonAmount'],
+            'addon_species' => $fields['addonSpecies'],
+            'date_for_sale' => Carbon::createFromFormat('d/m/Y', $fields['expectedDate'])->format('Y-m-d'),
+            'quantity_for_sale' => $fields['expectedAmount'],
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+        return response("New Plant Added", 200);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -52,9 +101,9 @@ class FarmerController extends Controller
             $farmer = Farmer::create([
                 'user_id' => $user->id,
                 'address' => $fields['address'],
-                'growing_area' => $fields['growingArea'],
-                'lat_plot' => $fields['latPlot'],
-                'long_plot' => $fields['longPlot'],
+                'area' => $fields['growingArea'],
+                'lat' => $fields['latPlot'],
+                'long' => $fields['longPlot'],
                 'received_amount' => $fields['receivedAmount'],
                 'enterprise_id' => $fields['enterpriseId'],
 
@@ -99,27 +148,5 @@ class FarmerController extends Controller
         //
     }
 
-    public function getInfo($id) {
-        $farmer = Farmer::find($id);
-        $remain_amount = $farmer->received_amount;
-        $plant = Farmer::find($id)->getCurrentPlants;
-        if(count($plant) > 0) {
-            $remain_amount = $plant->first()->remain_plant;
-        }
-
-        $data = [
-            "remain" => $remain_amount,
-        ];
-
-        return response($data, 200);
-    }
-
-    public function getPlants($id) {
-        $plant = Farmer::find($id)->plants;
-        $data = [
-            "payload" => $plant,
-        ];
-
-        return response($data, 200);
-    }
+    
 }

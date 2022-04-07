@@ -12,9 +12,9 @@ class Farmer extends Model
     protected $fillable = [       
         'user_id',
         'address',
-        'growing_area',
-        'lat_plot',
-        'long_plot',
+        'area',
+        'lat',
+        'long',
         'received_amount',
         'enterprise_id',
     ];
